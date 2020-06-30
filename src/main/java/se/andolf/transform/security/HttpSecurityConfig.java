@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
+import org.springframework.security.web.server.csrf.CsrfToken;
+import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 import se.andolf.transform.repositories.UserRepository;
 
@@ -39,7 +42,8 @@ public class HttpSecurityConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
+        http.csrf().csrfTokenRepository(new CookieServerCsrfTokenRepository())
+                .and()
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
@@ -47,5 +51,13 @@ public class HttpSecurityConfig {
                 .httpBasic(withDefaults())
                 .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login"));
         return http.build();
+    }
+
+    @Bean
+    public WebFilter addCsrfToken() {
+        return (exchange, next) -> exchange
+                .<Mono<CsrfToken>>getAttribute(CsrfToken.class.getName())
+                .doOnSuccess(token -> {}) // do nothing, just subscribe :/
+                .then(next.filter(exchange));
     }
 }
