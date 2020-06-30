@@ -1,6 +1,8 @@
 package se.andolf.transform.security;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
@@ -21,10 +23,17 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebFluxSecurity
-@AllArgsConstructor
 public class HttpSecurityConfig {
 
+    @Value("${security.enable-csrf:false}")
+    private boolean csrfEnabled;
+
     private final UserRepository userRepository;
+
+    @Autowired
+    public HttpSecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public ReactiveUserDetailsService userDetailsService() {
@@ -50,10 +59,18 @@ public class HttpSecurityConfig {
                 )
                 .httpBasic(withDefaults())
                 .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login"));
+
+        if(!csrfEnabled){
+            http.csrf().disable();
+        }
+
         return http.build();
     }
 
     @Bean
+    @ConditionalOnProperty(
+            value="security.enable-csrf",
+            havingValue = "true")
     public WebFilter addCsrfToken() {
         return (exchange, next) -> exchange
                 .<Mono<CsrfToken>>getAttribute(CsrfToken.class.getName())

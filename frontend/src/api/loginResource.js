@@ -1,3 +1,7 @@
 export default function create() {
-  return Promise.reject("There was an error")
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("something went wrong");
+    }, 3000)
+  });
 }
