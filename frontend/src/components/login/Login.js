@@ -28,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Login = (props) => {
+  console.log(props.error);
   const classes = useStyles(props)
+  const { onClick } = props
   return (
     <Box display="flex" flexDirection="column" className={classes.box}>
       <Typography
@@ -80,6 +82,7 @@ const Login = (props) => {
           color="primary"
           disableElevation
           size="large"
+          onClick={onClick}
         >
           Login
         </Button>
