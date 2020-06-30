@@ -41,10 +41,11 @@ public class HttpSecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers("/").permitAll()
                         .anyExchange().authenticated()
                 )
                 .httpBasic(withDefaults())
-                .formLogin(withDefaults());
+                .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login"));
         return http.build();
     }
 }
