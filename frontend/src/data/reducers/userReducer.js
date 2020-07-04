@@ -1,4 +1,4 @@
-import { SET_USER } from '../actions/userActions';
+import { SET_USER } from '../actions/user.actions';
 
 const initialState = {};
 

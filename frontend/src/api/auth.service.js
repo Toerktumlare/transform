@@ -1,4 +1,8 @@
-export default function create() {
+export const authService = {
+  login,
+};
+
+function login() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       reject("something went wrong");
