@@ -10,7 +10,7 @@ function login(username, password) {
   return (dispatch) => {
     console.log("action, logging in");
     dispatch(request({ username }));
-    authService.login()
+    authService.login(username, password)
       .then(json => {
         dispatch(setUser(json))
       },
