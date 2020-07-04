@@ -45,7 +45,9 @@ public class HttpSecurityConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.csrf().csrfTokenRepository(new CookieServerCsrfTokenRepository())
+        final CookieServerCsrfTokenRepository cookieServerCsrfTokenRepository = new CookieServerCsrfTokenRepository();
+        cookieServerCsrfTokenRepository.setCookieHttpOnly(false);
+        http.csrf().csrfTokenRepository(cookieServerCsrfTokenRepository)
                 .and()
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/**").permitAll()

@@ -9,6 +9,6 @@ function login(username, password) {
 
   params.append('username', username);
   params.append('password', password);
-  
+
   return axios.post('/login', params);
 }
