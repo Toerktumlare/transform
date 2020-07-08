@@ -18,14 +18,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
+import se.andolf.transform.FileUtils;
 import se.andolf.transform.graphql.UserDataFetcher;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -37,16 +31,10 @@ public class GraphQLConfig {
     private final UserDataFetcher userDataFetcher;
 
     @Bean
-    public GraphQL graphQL() throws FileNotFoundException {
-        try {
-            final Path filePath = Paths.get(ClassLoader.getSystemResource("schema.graphqls").toURI());
-            final String content = Files.readString(filePath);
-            final GraphQLSchema graphQLSchema = buildSchema(content);
-            return GraphQL.newGraphQL(graphQLSchema).build();
-        } catch (IOException | URISyntaxException e) {
-            throw new FileNotFoundException("could not find schema file");
-        }
-
+    public GraphQL graphQL() {
+        final String content = FileUtils.readFile("schema.graphqls");
+        final GraphQLSchema graphQLSchema = buildSchema(content);
+        return GraphQL.newGraphQL(graphQLSchema).build();
     }
 
     @Bean
