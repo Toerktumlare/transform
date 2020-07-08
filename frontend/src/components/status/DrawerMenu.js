@@ -48,7 +48,7 @@ export default function DrawerMenu() {
         anchor="left"
       >
         <List>
-          <ListItem component={RouterLink} to="/login" button>
+          <ListItem component={RouterLink} to="/" button>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>

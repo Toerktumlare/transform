@@ -1,6 +1,6 @@
 import { authService } from '../../api'
-import { setUser } from './user.actions'
 import { userConstants } from '../constants/user.constants';
+import { history } from '../../components/helpers';
 
 export const authActions = {
   login
@@ -12,7 +12,9 @@ function login(username, password) {
     dispatch(request({ username }));
     authService.login(username, password)
       .then(json => {
-        dispatch(setUser(json))
+        localStorage.setItem('user', JSON.stringify(json));
+        dispatch(success(json));
+        history.push('/');
       },
       error => {
         dispatch(failure(error.toString()));

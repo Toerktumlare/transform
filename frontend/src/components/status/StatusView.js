@@ -5,14 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import { withRouter, useHistory } from 'react-router-dom';
 
 function StatusView() {
-  const history = useHistory();
-  useEffect(() => {
-    history.push('/login');
-  });
   return (
     <Container>
       <DrawerMenu />
       <main>
+        <Typography variant="h1" component="h2" gutterBottom>
+          Whalecum inside!
+        </Typography>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
