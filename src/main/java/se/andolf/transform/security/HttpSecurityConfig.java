@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
@@ -17,10 +18,9 @@ import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 import se.andolf.transform.repositories.UserRepository;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
 public class HttpSecurityConfig {
 
     @Value("${security.enable-csrf:false}")
@@ -40,7 +40,7 @@ public class HttpSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(16);
+        return new BCryptPasswordEncoder(10);
     }
 
     @Bean
@@ -50,10 +50,10 @@ public class HttpSecurityConfig {
         http.csrf().csrfTokenRepository(cookieServerCsrfTokenRepository)
                 .and()
                 .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers("/graphql").hasRole("USER")
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
                 )
-                .httpBasic(withDefaults())
                 .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login"));
 
         if(!csrfEnabled){

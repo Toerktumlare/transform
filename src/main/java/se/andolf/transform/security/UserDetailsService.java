@@ -15,11 +15,10 @@ public class UserDetailsService implements ReactiveUserDetailsService {
 
     @Override
     public Mono<UserDetails> findByUsername(String username) {
-        System.out.println(username);
         return userRepository.findByEmail(username)
-            .map(users -> User.withUsername(users.getEmail())
-            .password(users.getPassword())
-            .roles("ADMIN").build()
-                    ).switchIfEmpty(Mono.error(() -> new AccessDeniedException("ACCESS DENIED")));
+                .map(users -> User.withUsername(users.getEmail())
+                .password(users.getPassword())
+                .roles("USER").build()
+            ).switchIfEmpty(Mono.error(() -> new AccessDeniedException("ACCESS DENIED")));
     }
 }
