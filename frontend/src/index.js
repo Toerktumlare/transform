@@ -5,16 +5,20 @@ import { Provider } from 'react-redux'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import configureStore from './data/store'
+import { ApolloProvider } from '@apollo/react-hooks'
+import { client } from './components/common/ApolloClient'
 
 const store = configureStore()
 window.store = store
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 )
 

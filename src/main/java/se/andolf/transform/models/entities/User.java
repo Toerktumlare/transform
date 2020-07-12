@@ -1,5 +1,6 @@
 package se.andolf.transform.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class User {
     private String familyName;
     private String middleName;
     private String email;
+
+    @JsonIgnore
     private String password;
 
 }

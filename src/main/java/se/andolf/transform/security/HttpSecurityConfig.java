@@ -1,5 +1,6 @@
 package se.andolf.transform.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,9 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
 import org.springframework.security.web.server.csrf.CsrfToken;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 import se.andolf.transform.repositories.UserRepository;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -44,9 +50,11 @@ public class HttpSecurityConfig {
     }
 
     @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, ObjectMapper objectMapper) {
+
         final CookieServerCsrfTokenRepository cookieServerCsrfTokenRepository = new CookieServerCsrfTokenRepository();
         cookieServerCsrfTokenRepository.setCookieHttpOnly(false);
+
         http.csrf().csrfTokenRepository(cookieServerCsrfTokenRepository)
                 .and()
                 .authorizeExchange(exchanges -> exchanges
@@ -54,13 +62,27 @@ public class HttpSecurityConfig {
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
                 )
-                .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login"));
+                .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login")
+                        .authenticationFailureHandler(new AuthenticationFailureHandler())
+                        .authenticationSuccessHandler(new AuthenticationSuccessHandler(userRepository, objectMapper))
+                );
 
-        if(!csrfEnabled){
+        if(!csrfEnabled) {
             http.csrf().disable();
         }
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource cors() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

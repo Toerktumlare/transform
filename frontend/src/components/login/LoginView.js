@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Container } from '@material-ui/core'
 import Login from './Login'
 import Logo from '../common/Logo'

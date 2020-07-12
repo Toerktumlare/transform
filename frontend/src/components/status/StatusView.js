@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import DrawerMenu from './DrawerMenu'
 import { Container } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 function StatusView() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -10,6 +10,9 @@ import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { authActions } from '../../data/actions/auth.actions'
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -33,6 +36,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const LOGIN_QUERY = gql`
+  mutation doLogin($username: String!, $password: String!, $formSerializer: any) {
+    user(input: { username: $username, password: $password})
+      @rest(
+        path: "/login"
+        type: "user"
+        method: "POST"
+        bodySerializer: $formSerializer
+      ) {
+        id
+        givenName
+        familyName
+        middleName
+        email
+      }
+  }
+`
+const formSerializer = (data, headers) => {
+  const formData = new URLSearchParams()
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key])
+    }
+  }
+
+  headers.set('Content-Type', 'application/x-www-form-urlencoded')
+
+  return { body: formData, headers }
+}
+
 const Login = (props) => {
   const classes = useStyles(props)
 
@@ -40,10 +73,23 @@ const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const [doLogin, { data }] = useMutation(LOGIN_QUERY, {
+    onCompleted: (data) => {
+      localStorage.setItem("user", JSON.stringify(data.user))
+      history.push('/')
+    },
+    onError: () => {
+      console.log("Poop")
+    }
+  })
+  const history = useHistory()
+
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log('logging in...')
-    login(username, password)
+    doLogin({
+      variables: { username, password, formSerializer },
+    })
   }
 
   const handleUsernameChange = (e) => {
