@@ -12,13 +12,13 @@ const store = configureStore()
 window.store = store
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
-  </ApolloProvider>,
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Provider>
+    </ApolloProvider>,
   document.getElementById('root')
 )
 
