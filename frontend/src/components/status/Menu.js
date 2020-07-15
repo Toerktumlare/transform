@@ -11,7 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import Drawer from '@material-ui/core/Drawer'
 import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
+import { Container } from '@material-ui/core'
+
 import EventNoteIcon from '@material-ui/icons/EventNote'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import BarChartIcon from '@material-ui/icons/BarChart'
@@ -21,9 +22,6 @@ import Typography from '@material-ui/core/Typography'
 import { Link, Route, useRouteMatch } from 'react-router-dom'
 import ProfileView from './ProfileView'
 import SettingsView from './SettingsView'
-import CalenderView from './CalendarView';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import ExerciseView from './ExerciseView';
 
 const drawerWidth = 60
 
@@ -98,11 +96,6 @@ const Menu = (props) => {
       icon: <BarChartIcon />,
       link: '/graphs',
     },
-    {
-      text: 'Exercises',
-      icon: <ListAltIcon />,
-      link: '/exercises'
-    }
   ]
 
   const footerItems = [
@@ -210,7 +203,11 @@ const Menu = (props) => {
         </Container>
       </Route>
       <Route exact path={`${match.url}/calender`}>
-        <CalenderView />
+        <Container>
+          <Typography variant="h1" component="h2" gutterBottom>
+            Calender view
+          </Typography>
+        </Container>
       </Route>
       <Route exact path={`${match.url}/workouts`}>
         <Container>
@@ -225,9 +222,6 @@ const Menu = (props) => {
             Graph view
           </Typography>
         </Container>
-      </Route>
-      <Route exact path={`${match.url}/exercises`}>
-        <ExerciseView />
       </Route>
       <Route exact path={`${match.url}/profile`}>
         <ProfileView />

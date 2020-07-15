@@ -6,12 +6,6 @@ type User {
     email: String!
 }
 
-type Exercise {
-    id: Int!
-    name: String!
-}
-
 type Query {
     user: User
-    exercises: [Exercise]!
 }
