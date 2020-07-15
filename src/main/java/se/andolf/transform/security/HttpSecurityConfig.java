@@ -57,6 +57,8 @@ public class HttpSecurityConfig {
 
         http.csrf().csrfTokenRepository(cookieServerCsrfTokenRepository)
                 .and()
+                .cors()
+                .and()
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/graphql").hasRole("USER")
                         .pathMatchers("/**").permitAll()
@@ -79,7 +81,8 @@ public class HttpSecurityConfig {
     public CorsConfigurationSource cors() {
         final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("content-type", "x-xsrf-token"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

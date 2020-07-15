@@ -19,6 +19,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 import se.andolf.transform.FileUtils;
+import se.andolf.transform.graphql.ExerciseDataFetcher;
 import se.andolf.transform.graphql.UserDataFetcher;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
@@ -29,6 +30,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class GraphQLConfig {
 
     private final UserDataFetcher userDataFetcher;
+    private final ExerciseDataFetcher exerciseDataFetcher;
 
     @Bean
     public GraphQL graphQL() {
@@ -56,6 +58,8 @@ public class GraphQLConfig {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("user", userDataFetcher))
+                .type(newTypeWiring("Query")
+                        .dataFetcher("exercises", exerciseDataFetcher))
                 .build();
     }
 }
