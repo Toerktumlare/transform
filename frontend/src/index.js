@@ -1,24 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { Provider } from 'react-redux'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import configureStore from './data/store'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { client } from './components/common/ApolloClient'
 
-const store = configureStore()
-window.store = store
-
 ReactDOM.render(
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </Provider>
-    </ApolloProvider>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById('root')
 )
 

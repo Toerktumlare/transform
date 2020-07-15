@@ -8,8 +8,6 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
-import { connect } from 'react-redux'
-import { authActions } from '../../data/actions/auth.actions'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
@@ -188,13 +186,4 @@ const Login = (props) => {
   )
 }
 
-function mapState(state) {
-  const { loggingIn, loginFailed } = state.authentication
-  return { loggingIn, loginFailed }
-}
-
-const actionCreators = {
-  login: authActions.login,
-}
-
-export default connect(mapState, actionCreators)(Login)
+export default Login;
