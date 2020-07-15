@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -13,6 +13,7 @@ import { authActions } from '../../data/actions/auth.actions'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
+import { CircularProgress } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -34,23 +35,34 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     visibility: (props) => (props.loggingIn ? 'visible' : 'hidden'),
   },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -14,
+    marginLeft: -14,
+  },
 }))
 
 const LOGIN_QUERY = gql`
-  mutation doLogin($username: String!, $password: String!, $formSerializer: any) {
-    user(input: { username: $username, password: $password})
+  mutation doLogin(
+    $username: String!
+    $password: String!
+    $formSerializer: any
+  ) {
+    user(input: { username: $username, password: $password })
       @rest(
         path: "/login"
         type: "user"
         method: "POST"
         bodySerializer: $formSerializer
       ) {
-        id
-        givenName
-        familyName
-        middleName
-        email
-      }
+      id
+      givenName
+      familyName
+      middleName
+      email
+    }
   }
 `
 const formSerializer = (data, headers) => {
@@ -69,18 +81,19 @@ const formSerializer = (data, headers) => {
 const Login = (props) => {
   const classes = useStyles(props)
 
-  const { loginFailed, login } = props
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const [doLogin, { data }] = useMutation(LOGIN_QUERY, {
+  const [doLogin, { loading, error }] = useMutation(LOGIN_QUERY, {
     onCompleted: (data) => {
-      localStorage.setItem("user", JSON.stringify(data.user))
+      localStorage.setItem('user', JSON.stringify(data.user))
       history.push('/')
     },
-    onError: () => {
-      console.log("Poop")
-    }
+    onError(error) {
+      // Is needed because of
+      // https://github.com/apollographql/apollo-client/issues/6070
+      console.error('error :>>', error.message)
+    },
   })
   const history = useHistory()
 
@@ -112,7 +125,7 @@ const Login = (props) => {
       </Typography>
       <form name="form" onSubmit={handleSubmit}>
         <Box display="flex" flexDirection="column" className={classes.form}>
-          {loginFailed && (
+          {error && (
             <Alert className={classes.error} severity="error">
               There was a problem with your login.
             </Alert>
@@ -153,16 +166,22 @@ const Login = (props) => {
             fullWidth
             onChange={handlePasswordChange}
           />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disableElevation
-            size="large"
-            fullWidth
-          >
-            Login
-          </Button>
+          <Box position="relative">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disableElevation
+              size="large"
+              fullWidth
+              disabled={loading}
+            >
+              Login
+            </Button>
+            {loading && (
+              <CircularProgress size={26} className={classes.buttonProgress} />
+            )}
+          </Box>
         </Box>
       </form>
     </Box>
