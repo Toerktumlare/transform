@@ -20,8 +20,9 @@ function SettingsView() {
 
   const [doLogout, { loading, error }] = useMutation(LOGOUT_QUERY, {
     onCompleted: (data) => {
-      localStorage.removeItem('user', JSON.stringify(data.user))
-      client.resetStore()
+      client
+        .clearStore()
+        .then(localStorage.removeItem('user', JSON.stringify(data.user)))
       history.push('/')
     },
     onError(error) {
