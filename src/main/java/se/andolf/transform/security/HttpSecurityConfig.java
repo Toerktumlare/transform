@@ -65,7 +65,8 @@ public class HttpSecurityConfig {
                 .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login")
                         .authenticationFailureHandler(new AuthenticationFailureHandler())
                         .authenticationSuccessHandler(new AuthenticationSuccessHandler(userRepository, objectMapper))
-                );
+                ).logout(logoutSpec -> logoutSpec.logoutUrl("/logout")
+                        .logoutSuccessHandler(new LogoutSuccessHandler()));
 
         if(!csrfEnabled) {
             http.csrf().disable();

@@ -78,9 +78,9 @@ const formSerializer = (data, headers) => {
 
 const Login = (props) => {
   const classes = useStyles(props)
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
 
   const [doLogin, { loading, error }] = useMutation(LOGIN_QUERY, {
     onCompleted: (data) => {
@@ -93,7 +93,6 @@ const Login = (props) => {
       console.error('error :>>', error.message)
     },
   })
-  const history = useHistory()
 
   const handleSubmit = (event) => {
     event.preventDefault()
