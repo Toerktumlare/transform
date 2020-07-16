@@ -11,11 +11,11 @@ const cache = new InMemoryCache()
 
 const httpLink = new createHttpLink({
   credentials: 'include',
-  uri: 'http://localhost:8080/graphql'
+  uri: process.env.REACT_APP_API_URL + '/graphql'
 })
 
 const restLink = new RestLink({
-  uri: window.location.origin,
+  uri: process.env.REACT_APP_API_URL,
   credentials: 'include',
   fetchOptions: {
     mode: 'no-cors',

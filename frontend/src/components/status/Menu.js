@@ -23,7 +23,7 @@ import ProfileView from './ProfileView'
 import SettingsView from './SettingsView'
 import CalenderView from './CalendarView';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import ExerciseView from './ExerciseView';
+import ExerciseView from '../exercises/ExerciseView';
 
 const drawerWidth = 60
 
