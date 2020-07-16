@@ -75,7 +75,6 @@ const Menu = (props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const { children } = props
   const match = useRouteMatch()
 
   const handleDrawerToggle = () => {

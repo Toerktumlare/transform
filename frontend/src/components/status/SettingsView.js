@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { client } from '../common/ApolloClient'
-import Box from '@material-ui/core/box'
+import Box from '@material-ui/core/Box'
 
 const LOGOUT_QUERY = gql`
   mutation doLogout($nothing: nothing) {
@@ -34,7 +34,6 @@ function SettingsView() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('logging out...')
     doLogout('')
   }
 

@@ -96,7 +96,6 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('logging in...')
     doLogin({
       variables: { username, password, formSerializer },
     })

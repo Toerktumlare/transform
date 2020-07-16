@@ -20,59 +20,6 @@ const GET_EXERCISES = gql`
 const ExerciseView = () => {
 
   const { loading, error, data } = useQuery(GET_EXERCISES);
-  console.log(data);
-
-
-const exercises = [
-  {
-    id: 1,
-    name: "Back Squats", 
-  },
-  {
-    id: 2,
-    name: "Snatch", 
-  },
-  {
-    id: 3,
-    name: "Pullups", 
-  },
-  {
-    id: 4,
-    name: "Chinups", 
-  },
-  {
-    id: 5,
-    name: "Situps", 
-  },
-  {
-    id: 6,
-    name: "Pushups", 
-  },
-  {
-    id: 7,
-    name: "Clean and Jerk", 
-  },
-  {
-    id: 8,
-    name: "Box Jumps", 
-  },
-  {
-    id: 9,
-    name: "Handstand pushups", 
-  },
-  {
-    id: 10,
-    name: "Goblet squat", 
-  },
-  {
-    id: 11,
-    name: "Toes to bar", 
-  },
-  {
-    id: 12,
-    name: "Mountain Climbers", 
-  }
-]
 
   return (
     <Container>
