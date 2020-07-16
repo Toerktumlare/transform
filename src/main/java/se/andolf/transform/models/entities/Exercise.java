@@ -13,6 +13,6 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Exercise {
 
     @Id
-    private long id;
+    private Long id;
     private String name;
 }

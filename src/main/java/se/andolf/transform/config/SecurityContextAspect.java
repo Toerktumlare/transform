@@ -71,7 +71,7 @@ public class SecurityContextAspect {
     private void dataFetchers() {
     }
 
-    @Pointcut("within(se.andolf.transform.graphql.*)")
+    @Pointcut("within(se.andolf.transform.graphql.*.*)")
     private void inPackage() {
     }
 }

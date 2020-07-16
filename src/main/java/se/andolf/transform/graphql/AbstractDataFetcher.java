@@ -1,14 +1,18 @@
 package se.andolf.transform.graphql;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import se.andolf.transform.services.ExerciseService;
 import se.andolf.transform.services.UserService;
 
-abstract class AbstractDataFetcher {
+public abstract class AbstractDataFetcher {
 
     @Autowired
-    UserService userService;
+    public UserService userService;
 
     @Autowired
-    ExerciseService exerciseService;
+    public ExerciseService exerciseService;
+
+    @Autowired
+    public ObjectMapper objectMapper;
 }

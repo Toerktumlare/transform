@@ -1,16 +1,15 @@
-package se.andolf.transform.graphql;
+package se.andolf.transform.graphql.queries;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import se.andolf.transform.graphql.AbstractDataFetcher;
 import se.andolf.transform.models.entities.Exercise;
 
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class ExerciseDataFetcher extends AbstractDataFetcher implements DataFetcher<Mono<List<Exercise>>> {
 
     @Override

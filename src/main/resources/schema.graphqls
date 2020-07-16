@@ -1,3 +1,12 @@
+type Query {
+    user: User
+    exercises: [Exercise]!
+}
+
+type Mutation {
+    createExercise(input: ExerciseInput!): Exercise!
+}
+
 type User {
     id: Int!
     givenName: String!
@@ -11,7 +20,6 @@ type Exercise {
     name: String!
 }
 
-type Query {
-    user: User
-    exercises: [Exercise]!
+input ExerciseInput {
+    name: String!
 }
