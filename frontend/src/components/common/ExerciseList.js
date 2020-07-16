@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '@material-ui/core/box'
+import Box from '@material-ui/core/Box'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
