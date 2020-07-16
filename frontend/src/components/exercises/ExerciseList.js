@@ -4,23 +4,39 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+import Skeleton from '@material-ui/lab/Skeleton'
 
-const ExerciseList = ({data, border, borderRadius, flexGrow}) => {
-  console.log(data)
+const GET_EXERCISES = gql`
+  query exercises {
+    exercises {
+      id
+      name
+    }
+  }
+`
+
+const ExerciseList = ({ border, borderRadius, flexGrow }) => {
+  const { loading, error, data } = useQuery(GET_EXERCISES)
   return (
     <Box border={border} borderRadius={borderRadius} flexGrow={flexGrow}>
-      <List dense>
-        {data.map((item, index) => {
-          return (
-            <>
-              <ListItem button key={item.id}>
-                <ListItemText primary={item.name} />
-              </ListItem>
-              <Divider />
-            </>
-          )
-        })}
-      </List>
+      {loading ? (
+        <Skeleton variant="rect" />
+      ) : (
+        <List dense>
+          {data.exercises.map((item, index) => {
+            return (
+              <>
+                <ListItem button key={item.id}>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+                <Divider />
+              </>
+            )
+          })}
+        </List>
+      )}
     </Box>
   )
 }
