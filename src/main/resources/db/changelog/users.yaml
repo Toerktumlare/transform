@@ -1,5 +1,10 @@
 databaseChangeLog:
   -  changeSet:
+       preConditions:
+         - onFail: WARN
+           not:
+             tableExists:
+               tableName: users
        id:  1
        author:  application
        changes:
