@@ -1,79 +1,13 @@
 databaseChangeLog:
-  -  changeSet:
-       id:  1
-       author:  application
-       changes:
-         -  createTable:
-              tableName:  users
-              columns:
-                -  column:
-                     name:  id
-                     type:  bigint
-                     autoIncrement:  true
-                     constraints:
-                       primaryKey:  true
-                       nullable:  false
-                -  column:
-                     name:  given_name
-                     type:  varchar(50)
-                     constraints:
-                       nullable:  false
-                -  column:
-                     name:  family_name
-                     type:  varchar(50)
-                     constraints:
-                       nullable:  false
-                - column:
-                    name:  middle_name
-                    type:  varchar(50)
-                    constraints:
-                      nullable:  false
-                - column:
-                    name:  email
-                    type:  varchar(50)
-                    constraints:
-                      nullable:  false
-                - column:
-                    name:  password
-                    type:  varchar(200)
-                    constraints:
-                      nullable:  false
-  - changeSet:
-      id:  2
-      author:  test-data
-      context: test
-      changes:
-        - loadData:
-            encoding:  UTF-8
-            file:  data/users.csv
-            tableName:  users
-
-  -  changeSet:
-       id:  3
-       author:  application
-       changes:
-         -  createTable:
-              tableName:  exercises
-              columns:
-                -  column:
-                     name:  id
-                     type:  bigint
-                     autoIncrement:  true
-                     constraints:
-                       primaryKey:  true
-                       nullable:  false
-                -  column:
-                     name:  name
-                     type:  varchar(50)
-                     constraints:
-                       nullable:  false
-
-  - changeSet:
-      id:  4
-      author:  test-data
-      context: test
-      changes:
-        - loadData:
-            encoding:  UTF-8
-            file:  data/exercises.csv
-            tableName:  exercises
+  - include:
+      file: users.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: categories.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: exercises.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: exercises_categories.yaml
+      relativeToChangelogFile: true

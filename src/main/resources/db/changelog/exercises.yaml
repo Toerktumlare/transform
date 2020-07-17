@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id:  3
+      author:  application
+      changes:
+        - createTable:
+            tableName:  exercises
+            columns:
+              - column:
+                  name:  id
+                  type:  bigint
+                  autoIncrement:  true
+                  constraints:
+                    primaryKey:  true
+                    nullable:  false
+              - column:
+                  name:  name
+                  type:  varchar(50)
+                  constraints:
+                    nullable:  false
+
+  - changeSet:
+      id:  4
+      author:  test-data
+      context: test
+      changes:
+        - loadData:
+            encoding:  UTF-8
+            file:  data/exercises.csv
+            tableName:  exercises
