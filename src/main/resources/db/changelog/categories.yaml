@@ -1,28 +1,28 @@
 databaseChangeLog:
-  -  changeSet:
-       preConditions:
-          - onFail: WARN
-            not:
-              tableExists:
-                tableName: categories
-       id:  5
-       author:  application
-       changes:
-         -  createTable:
-              tableName:  categories
-              columns:
-                -  column:
-                     name:  id
-                     type:  bigint
-                     autoIncrement:  true
-                     constraints:
-                       primaryKey:  true
-                       nullable:  false
-                -  column:
-                     name:  name
-                     type:  varchar(50)
-                     constraints:
-                       nullable:  false
+  - changeSet:
+      preConditions:
+        - onFail: WARN
+          not:
+            tableExists:
+              tableName: categories
+      id: 5
+      author: application
+      changes:
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
   - addUniqueConstraint:
       columnNames: id, name
       tableName: categories
@@ -30,9 +30,9 @@ databaseChangeLog:
 
   - changeSet:
       id:  6
-      author:  categories-data
+      author: categories-data
       changes:
         - loadData:
-            encoding:  UTF-8
-            file:  data/categories.csv
-            tableName:  categories
+            encoding: UTF-8
+            file: data/categories.csv
+            tableName: categories

@@ -1,37 +1,37 @@
 databaseChangeLog:
-  -  changeSet:
-       preConditions:
-         - onFail: WARN
-           not:
-             tableExists:
-               tableName: exercises_categories
-       id:  7
-       author:  application
-       changes:
-         -  createTable:
-              tableName:  exercises_categories
-              columns:
-                -  column:
-                     name:  id
-                     type:  bigint
-                     autoIncrement:  true
-                     constraints:
-                       primaryKey:  true
-                       nullable:  false
-                - column:
-                    name: exercise_id
-                    type: bigint
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_categories
-                      references: exercises(id)
-                - column:
-                    name: category_id
-                    type: bigint
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_exercises
-                      references: categories(id)
+  - changeSet:
+      preConditions:
+        - onFail: WARN
+          not:
+            tableExists:
+              tableName: exercises_categories
+      id:  7
+      author:  application
+      changes:
+        - createTable:
+            tableName:  exercises_categories
+            columns:
+              - column:
+                  name:  id
+                  type:  bigint
+                  autoIncrement:  true
+                  constraints:
+                    primaryKey:  true
+                    nullable:  false
+              - column:
+                  name: exercise_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_categories
+                    references: exercises(id)
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exercises
+                    references: categories(id)
 
   - changeSet:
       id:  8
