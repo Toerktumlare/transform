@@ -19,7 +19,9 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 import se.andolf.transform.FileUtils;
+import se.andolf.transform.graphql.mutations.CategoryMutationDataFetcher;
 import se.andolf.transform.graphql.mutations.ExerciseMutationDataFetcher;
+import se.andolf.transform.graphql.queries.CategoryDataFetcher;
 import se.andolf.transform.graphql.queries.ExerciseDataFetcher;
 import se.andolf.transform.graphql.queries.UserDataFetcher;
 
@@ -32,7 +34,9 @@ public class GraphQLConfig {
 
     private final UserDataFetcher userDataFetcher;
     private final ExerciseDataFetcher exerciseDataFetcher;
+    private final CategoryDataFetcher categoryDataFetcher;
     private final ExerciseMutationDataFetcher exerciseMutationDataFetcher;
+    private final CategoryMutationDataFetcher categoryMutationDataFetcher;
 
     @Bean
     public GraphQL graphQL() {
@@ -62,8 +66,12 @@ public class GraphQLConfig {
                         .dataFetcher("user", userDataFetcher))
                 .type(newTypeWiring("Query")
                         .dataFetcher("exercises", exerciseDataFetcher))
+                .type(newTypeWiring("Query")
+                        .dataFetcher("categories", categoryDataFetcher))
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("createExercise", exerciseMutationDataFetcher))
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("createCategory", categoryMutationDataFetcher))
                 .build();
     }
 }

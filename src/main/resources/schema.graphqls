@@ -1,10 +1,12 @@
 type Query {
     user: User
     exercises(category: String): [Exercise]!
+    categories(exercise: String): [Category]!
 }
 
 type Mutation {
     createExercise(input: ExerciseInput!): Exercise!
+    createCategory(input: CategoryInput!): Category!
 }
 
 type User {
@@ -20,10 +22,15 @@ type Exercise {
     name: String!
 }
 
+type Category {
+    id: ID!
+    name: String!
+}
+
 input ExerciseInput {
     name: String!
 }
 
-input CategoriesInput {
+input CategoryInput {
     name: String!
 }
