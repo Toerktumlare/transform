@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import se.andolf.transform.models.entities.Category;
 import se.andolf.transform.models.entities.Exercise;
 import se.andolf.transform.repositories.ExerciseRepository;
 
@@ -22,5 +23,10 @@ public class ExerciseService {
     @PreAuthorize("hasRole('USER')")
     public Mono<Exercise> save(Exercise exercise) {
         return exerciseRepository.save(exercise);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    public Flux<Exercise> get(Category category) {
+        return exerciseRepository.getExercisesByCategory(category.getName());
     }
 }

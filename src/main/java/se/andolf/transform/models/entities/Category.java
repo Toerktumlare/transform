@@ -6,16 +6,13 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.ArrayList;
-
 @Data
+@Table("categories")
 @AllArgsConstructor
 @Builder
-@Table("exercises")
-public class Exercise {
+public class Category {
 
     @Id
     private Long id;
     private String name;
-    private ArrayList<Category> categories;
 }
