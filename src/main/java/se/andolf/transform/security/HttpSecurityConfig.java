@@ -63,7 +63,7 @@ public class HttpSecurityConfig {
                         .pathMatchers("/graphql").hasRole("USER")
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
-                )
+                ).oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt().)
                 .formLogin(formLoginSpec -> formLoginSpec.loginPage("/login")
                         .authenticationFailureHandler(new AuthenticationFailureHandler())
                         .authenticationSuccessHandler(new AuthenticationSuccessHandler(userRepository, objectMapper))

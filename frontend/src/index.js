@@ -5,13 +5,17 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { client } from './components/common/ApolloClient'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/moment'
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ApolloProvider>,
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <ApolloProvider client={client}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ApolloProvider>
+  </MuiPickersUtilsProvider>,
   document.getElementById('root')
 )
 

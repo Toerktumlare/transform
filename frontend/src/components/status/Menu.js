@@ -21,9 +21,10 @@ import Typography from '@material-ui/core/Typography'
 import { Link, Route, useRouteMatch } from 'react-router-dom'
 import ProfileView from './ProfileView'
 import SettingsView from './SettingsView'
-import CalenderView from './CalendarView';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import ExerciseView from '../exercises/ExerciseView';
+import CalenderView from './CalendarView'
+import ListAltIcon from '@material-ui/icons/ListAlt'
+import ExerciseView from '../exercises/ExerciseView'
+import WorkoutsView from '../workouts/WorkoutsView'
 
 const drawerWidth = 60
 
@@ -100,8 +101,8 @@ const Menu = (props) => {
     {
       text: 'Exercises',
       icon: <ListAltIcon />,
-      link: '/exercises'
-    }
+      link: '/exercises',
+    },
   ]
 
   const footerItems = [
@@ -212,11 +213,7 @@ const Menu = (props) => {
         <CalenderView />
       </Route>
       <Route exact path={`${match.url}/workouts`}>
-        <Container>
-          <Typography variant="h1" component="h2" gutterBottom>
-            Workout view
-          </Typography>
-        </Container>
+        <WorkoutsView />
       </Route>
       <Route exact path={`${match.url}/graphs`}>
         <Container>
