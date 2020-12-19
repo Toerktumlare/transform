@@ -16,13 +16,13 @@ public class ExerciseDataFetcher extends AbstractDataFetcher implements DataFetc
 
     @Override
     public Mono<List<Exercise>> get(DataFetchingEnvironment env) {
-        final Mono<List<Exercise>> category1 = Optional.ofNullable(env.getArgument("category"))
+        final Mono<List<Exercise>> exercises = Optional.ofNullable(env.getArgument("category"))
                 .map(category -> exerciseService.get(Category.builder()
                         .name((String) category)
                         .build()))
                 .orElse(exerciseService.getAll())
                 .collectList();
 
-        return category1.doOnSuccess(System.out::println);
+        return exercises.doOnSuccess(System.out::println);
     }
 }

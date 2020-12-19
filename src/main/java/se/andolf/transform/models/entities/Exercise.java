@@ -17,5 +17,5 @@ public class Exercise {
     @Id
     private Long id;
     private String name;
-    private ArrayList<Category> categories;
+//    private ArrayList<Category> categories = new ArrayList<>();
 }

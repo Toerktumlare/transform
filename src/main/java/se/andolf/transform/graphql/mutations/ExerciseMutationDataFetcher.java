@@ -13,7 +13,6 @@ public class ExerciseMutationDataFetcher extends AbstractDataFetcher implements 
     @Override
     public Mono<Exercise> get(DataFetchingEnvironment environment) {
         final Exercise exercise = objectMapper.convertValue(environment.getArgument("input"), Exercise.class);
-
         return exerciseService.save(exercise);
     }
 }
