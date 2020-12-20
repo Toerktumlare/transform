@@ -10,7 +10,7 @@ public class LogoutSuccessHandler implements ServerLogoutSuccessHandler {
 
     @Override
     public Mono<Void> onLogoutSuccess(WebFilterExchange exchange, Authentication authentication) {
-        exchange.getExchange().getResponse().setStatusCode(HttpStatus.OK);
+        exchange.getExchange().getResponse().setStatusCode(HttpStatus.NO_CONTENT);
         return Mono.empty();
     }
 }

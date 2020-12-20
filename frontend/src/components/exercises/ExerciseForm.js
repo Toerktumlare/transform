@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Typography, TextField, Button } from '@material-ui/core'
 import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { GET_EXERCISES } from './ExerciseQueries'
 
 const CREATE_EXERCISE = gql`

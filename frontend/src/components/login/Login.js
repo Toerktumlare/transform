@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
 import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 

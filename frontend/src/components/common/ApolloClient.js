@@ -1,10 +1,12 @@
-import ApolloClient from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { ApolloLink } from 'apollo-link'
-import { createHttpLink } from 'apollo-link-http'
-import { onError } from 'apollo-link-error'
-import { setContext } from 'apollo-link-context'
-import { RestLink } from 'apollo-link-rest'
+import { 
+  ApolloClient,
+  InMemoryCache,
+  ApolloLink,
+  createHttpLink,
+} from '@apollo/client'
+import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
+import { RestLink } from 'apollo-link-rest';
 import Cookies from 'js-cookie'
 
 const cache = new InMemoryCache()
