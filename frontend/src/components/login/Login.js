@@ -8,8 +8,8 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/client'
+import { useMutation, gql } from '@apollo/client'
+import { isLoggedInVar } from '../common/ApolloClient'
 import { useHistory } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 
@@ -84,6 +84,8 @@ const Login = (props) => {
 
   const [doLogin, { loading, error }] = useMutation(LOGIN_QUERY, {
     onCompleted: (data) => {
+      localStorage.setItem("userId", data.user.id);
+      isLoggedInVar(true);
       history.push('/')
     },
     onError(error) {

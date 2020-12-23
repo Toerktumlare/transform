@@ -3,27 +3,32 @@ import {
   InMemoryCache,
   ApolloLink,
   createHttpLink,
+  gql,
+  makeVar
 } from '@apollo/client'
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { RestLink } from 'apollo-link-rest';
 import Cookies from 'js-cookie'
 
+const typeDefs = gql`
+  extend type Query {
+    isLoggedIn: Boolean!
+  }
+`;
+
+export const isLoggedInVar = makeVar(!!localStorage.getItem('userId'));
+
 const cache = new InMemoryCache({
   typePolicies: {
-    User : {
-      keyFields: [],
+    User: {
+      keyFields: []
+    },
+    Query : {
       fields: {
-        givenName: {
-          read(name, { variables }) {
-            // return JSON.parse(localStorage.getItem('user'))
-            return name.toUpperCase();
-          }
-        },
-        age: {
-          read(_) {
-            console.log("Foobar");
-            return "16";
+        isLoggedIn: {
+          read() {
+            return isLoggedInVar()
           }
         }
       }
@@ -70,4 +75,5 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 export const client = new ApolloClient({
   link: ApolloLink.from([errorLink, authLink, restLink, httpLink]),
   cache,
+  typeDefs
 })

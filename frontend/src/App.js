@@ -10,13 +10,10 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
         <Route path="/login">
           <LoginView />
         </Route>
-        <PrivateRoute path="/home">
+        <PrivateRoute path="/">
           <Menu />
         </PrivateRoute>
       </Switch>

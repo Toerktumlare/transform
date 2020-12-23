@@ -127,7 +127,7 @@ const Menu = (props) => {
           return (
             <ListItem alignItems="center" button key={text}>
               {icon && (
-                <Link to={`${match.url}${link}`}>
+                <Link to={location => ({...location, pathname: `${link}`})}>
                   <ListItemIcon>{icon}</ListItemIcon>
                 </Link>
               )}
@@ -142,7 +142,7 @@ const Menu = (props) => {
             return (
               <ListItem alignItems="center" button key={text}>
                 {icon && (
-                  <Link to={`${match.url}${link}`}>
+                  <Link to={location => ({...location, pathname: `${link}`})}>
                     <ListItemIcon>{icon}</ListItemIcon>
                   </Link>
                 )}
@@ -210,24 +210,24 @@ const Menu = (props) => {
               </Typography>
             </Container>
           </Route>
-          <Route exact path={`${match.url}/calender`}>
+          <Route exact path='/calender'>
             <CalenderView />
           </Route>
-          <Route exact path={`${match.url}/workouts`}>
+          <Route exact path='/workouts'>
             <WorkoutsView />
           </Route>
-          <Route exact path={`${match.url}/graphs`}>
+          <Route exact path='/graphs'>
             <Typography variant="h1" component="h2" gutterBottom>
               Graph view
             </Typography>
           </Route>
-          <Route exact path={`${match.url}/exercises`}>
+          <Route exact path='/exercises'>
             <ExerciseView />
           </Route>
-          <Route exact path={`${match.url}/profile`}>
+          <Route exact path='/profile'>
             <ProfileView />
           </Route>
-          <Route exact path={`${match.url}/settings`}>
+          <Route exact path='/settings'>
             <SettingsView />
           </Route>
         </div>

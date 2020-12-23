@@ -7,6 +7,7 @@ import {
   useMutation, 
 } from "@apollo/client";
 import Box from '@material-ui/core/Box'
+import { isLoggedInVar } from '../common/ApolloClient';
 
 const LOGOUT_MUTATION = gql`
   mutation doLogout {
@@ -22,9 +23,13 @@ function SettingsView() {
 
   const [doLogout, { loading, error }] = useMutation(LOGOUT_MUTATION, {
     onCompleted: (data) => {
-      client.clearStore().then(() => {
-        history.push('/');
-      });
+      client.cache.evict({ id: 'User:{}'});
+      client.cache.gc();
+      localStorage.removeItem("userId");
+
+      isLoggedInVar(false);
+
+      history.push('/login');
     },
     onError(error) {
       // Is needed because of

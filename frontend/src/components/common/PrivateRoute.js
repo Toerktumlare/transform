@@ -10,12 +10,10 @@ import ClipLoader from "react-spinners/ClipLoader"
 export const  PrivateRoute = ({ children, ...rest }) => {
 
   const GET_USER = gql`
-    query ReadUser {
-      user {
-        email
-        givenName
-      }
-  }`;
+    query IsUserLoggedIn {
+      isLoggedIn @client
+    }
+  `;
 
   const { loading, error, data } = useQuery(GET_USER);
 
@@ -35,7 +33,7 @@ export const  PrivateRoute = ({ children, ...rest }) => {
 
   return (
     <Route {...rest} render={({ location }) =>
-        data ? ( 
+        data.isLoggedIn ? ( 
           children
         ) : (
           <Redirect to={{
