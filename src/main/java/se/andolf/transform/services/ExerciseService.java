@@ -15,7 +15,6 @@ public class ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
 
-    @PreAuthorize("hasRole('USER')")
     public Flux<Exercise> getAll() {
         return exerciseRepository.findAll();
     }
@@ -25,7 +24,6 @@ public class ExerciseService {
         return exerciseRepository.save(exercise);
     }
 
-    @PreAuthorize("hasRole('USER')")
     public Flux<Exercise> get(Category category) {
         return exerciseRepository.getExercisesByCategory(category.getName());
     }

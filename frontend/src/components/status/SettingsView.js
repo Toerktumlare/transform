@@ -1,5 +1,4 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import gql from 'graphql-tag'
 import { useHistory } from 'react-router-dom'
@@ -23,10 +22,9 @@ function SettingsView() {
 
   const [doLogout, { loading, error }] = useMutation(LOGOUT_MUTATION, {
     onCompleted: (data) => {
-      client
-        .clearStore()
-        .then(localStorage.removeItem('user'))
-      history.push('/')
+      client.clearStore().then(() => {
+        history.push('/');
+      });
     },
     onError(error) {
       // Is needed because of
@@ -37,13 +35,11 @@ function SettingsView() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("I was clicked");
     doLogout();
   }
 
   return (
-    <Container>
-      <Box mt={3}>
+      <Box>
         <form name="form" onSubmit={handleSubmit}>
           <Button
             type="submit"
@@ -56,7 +52,6 @@ function SettingsView() {
           </Button>
         </form>
       </Box>
-    </Container>
   )
 }
 

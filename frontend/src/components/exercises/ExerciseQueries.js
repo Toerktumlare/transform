@@ -8,3 +8,12 @@ export const GET_EXERCISES = gql`
     }
   }
 `
+
+export const CREATE_EXERCISE = gql`
+  mutation doCreateExercise($input: ExerciseInput!) {
+    createExercise(input: $input) {
+      id
+      name
+    }
+  }
+`

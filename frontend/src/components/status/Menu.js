@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.up('sm')]: {
-      // width: `calc(100% - ${drawerWidth}px)`,
+      //width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(10),
   },
 }))
 
@@ -201,36 +201,37 @@ const Menu = (props) => {
           </Drawer>
         </Hidden>
       </nav>
-      <div className={classes.toolbar} />
-      <Route exact path={match.url}>
-        <Container>
-          <Typography variant="h1" component="h2" gutterBottom>
-            default view
-          </Typography>
-        </Container>
-      </Route>
-      <Route exact path={`${match.url}/calender`}>
-        <CalenderView />
-      </Route>
-      <Route exact path={`${match.url}/workouts`}>
-        <WorkoutsView />
-      </Route>
-      <Route exact path={`${match.url}/graphs`}>
-        <Container>
-          <Typography variant="h1" component="h2" gutterBottom>
-            Graph view
-          </Typography>
-        </Container>
-      </Route>
-      <Route exact path={`${match.url}/exercises`}>
-        <ExerciseView />
-      </Route>
-      <Route exact path={`${match.url}/profile`}>
-        <ProfileView />
-      </Route>
-      <Route exact path={`${match.url}/settings`}>
-        <SettingsView />
-      </Route>
+      <Container className={classes.content}>
+        <div className={classes.toolbar} >
+          <Route exact path={match.url}>
+            <Container>
+              <Typography variant="h1" component="h2" gutterBottom>
+                default view
+              </Typography>
+            </Container>
+          </Route>
+          <Route exact path={`${match.url}/calender`}>
+            <CalenderView />
+          </Route>
+          <Route exact path={`${match.url}/workouts`}>
+            <WorkoutsView />
+          </Route>
+          <Route exact path={`${match.url}/graphs`}>
+            <Typography variant="h1" component="h2" gutterBottom>
+              Graph view
+            </Typography>
+          </Route>
+          <Route exact path={`${match.url}/exercises`}>
+            <ExerciseView />
+          </Route>
+          <Route exact path={`${match.url}/profile`}>
+            <ProfileView />
+          </Route>
+          <Route exact path={`${match.url}/settings`}>
+            <SettingsView />
+          </Route>
+        </div>
+      </Container>
     </div>
   )
 }

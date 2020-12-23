@@ -4,16 +4,20 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import { useQuery } from '@apollo/client'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { GET_EXERCISES } from './ExerciseQueries'
 
 
-const ExerciseList = ({ border, borderRadius, flexGrow }) => {
-  const { loading, error, data } = useQuery(GET_EXERCISES)
+const ExerciseList = ({ 
+  border = 1, 
+  flexGrow = 1, 
+  data = [],
+  loading = true,
+  error = false
+}) => {
+  
   return (
-    <Box border={border} borderRadius={borderRadius} flexGrow={flexGrow}>
-      {loading ? (
+    <Box border={border} borderRadius={5} flexGrow={flexGrow}>
+      {loading || error ? (
         <Skeleton variant="rect" />
       ) : (
         <List dense>

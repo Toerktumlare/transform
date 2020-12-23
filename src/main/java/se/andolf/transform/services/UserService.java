@@ -13,7 +13,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @PreAuthorize("hasRole('USER')")
     public Mono<User> getByEmail(String email) {
         return userRepository.findByEmail(email);
     }

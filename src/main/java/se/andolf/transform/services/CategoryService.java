@@ -19,12 +19,10 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    @PreAuthorize("hasRole('USER')")
     public Flux<Category> getAll() {
         return categoryRepository.findAll();
     }
 
-    @PreAuthorize("hasRole('USER')")
     public Flux<Category> get(Category category) {
         return categoryRepository.getCategoriesByExercise(category.getName());
     }

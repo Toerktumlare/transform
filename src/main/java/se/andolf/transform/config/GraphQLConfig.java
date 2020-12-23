@@ -50,7 +50,8 @@ public class GraphQLConfig {
     public ExecutionInputCustomizer customExecutionInputCustomizer() {
         return (ExecutionInput executionInput, ServerWebExchange serverWebExchange) -> ReactiveSecurityContextHolder.getContext()
                 .flatMap(securityContext -> Mono.just(executionInput.transform(builder -> builder
-                        .context(Context.of(SecurityContext.class, securityContext)))));
+                        .context(Context.of(SecurityContext.class, securityContext)))))
+                .switchIfEmpty(Mono.just(executionInput));
     }
 
     private GraphQLSchema buildSchema(String sdl) {

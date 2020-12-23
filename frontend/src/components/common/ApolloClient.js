@@ -9,7 +9,27 @@ import { onError } from "@apollo/client/link/error";
 import { RestLink } from 'apollo-link-rest';
 import Cookies from 'js-cookie'
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  typePolicies: {
+    User : {
+      keyFields: [],
+      fields: {
+        givenName: {
+          read(name, { variables }) {
+            // return JSON.parse(localStorage.getItem('user'))
+            return name.toUpperCase();
+          }
+        },
+        age: {
+          read(_) {
+            console.log("Foobar");
+            return "16";
+          }
+        }
+      }
+    }
+  }
+});
 
 const httpLink = new createHttpLink({
   credentials: 'include',

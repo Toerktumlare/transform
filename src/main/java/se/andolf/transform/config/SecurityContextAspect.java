@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import static reactor.core.publisher.Mono.just;
+
 @Component
 @Aspect
 public class SecurityContextAspect {
@@ -39,11 +41,25 @@ public class SecurityContextAspect {
                 .flatMap(securityContext -> {
 
                     final DataFetchingEnvironment dataFetchingEnvironment = enrichEnv(env, securityContext);
-                    return (Mono) proceed(joinPoint, dataFetchingEnvironment);
-                })
+                    return (Mono<?>) proceed(joinPoint, dataFetchingEnvironment);
+                    })
                 .subscriberContext(ctx -> ReactiveSecurityContextHolder
-                        .withSecurityContext(Mono.just(env.<Context>getContext().get(SecurityContext.class))))
+                        .withSecurityContext(getContext(env)))
+                .switchIfEmpty((Mono) proceed(joinPoint, env))
                 .toFuture();
+    }
+
+    private Mono<SecurityContext> getContext(DataFetchingEnvironment env) {
+
+        SecurityContext context = null;
+
+        try {
+            context = env.<Context>getContext().get(SecurityContext.class);
+        } catch (Exception e) {
+            return Mono.empty();
+        }
+
+        return Mono.just(context);
     }
 
     /**

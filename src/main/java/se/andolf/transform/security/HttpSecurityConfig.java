@@ -60,7 +60,7 @@ public class HttpSecurityConfig {
                 .cors()
                 .and()
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/graphql").hasRole("USER")
+                        .pathMatchers("/graphql").permitAll()
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
                 )

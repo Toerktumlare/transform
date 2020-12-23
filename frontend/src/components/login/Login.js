@@ -51,7 +51,7 @@ const LOGIN_QUERY = gql`
     user(input: { username: $username, password: $password })
       @rest(
         path: "/login"
-        type: "user"
+        type: "User"
         method: "POST"
         bodySerializer: $formSerializer
       ) {
@@ -84,7 +84,6 @@ const Login = (props) => {
 
   const [doLogin, { loading, error }] = useMutation(LOGIN_QUERY, {
     onCompleted: (data) => {
-      localStorage.setItem('user', JSON.stringify(data.user))
       history.push('/')
     },
     onError(error) {

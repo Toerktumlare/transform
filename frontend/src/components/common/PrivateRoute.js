@@ -1,30 +1,41 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { 
-  useApolloClient, 
+  useQuery, 
   gql 
 } from "@apollo/client";
+import { Box } from '@material-ui/core';
+import ClipLoader from "react-spinners/ClipLoader"
 
 export const  PrivateRoute = ({ children, ...rest }) => {
-  const userString = localStorage.getItem('user');
-  const client = useApolloClient();
 
-  if(userString) {
-    const user = JSON.parse(userString)
-    client.writeQuery({
-      query: gql`
-      query saveUser {
-        user
+  const GET_USER = gql`
+    query ReadUser {
+      user {
+        email
+        givenName
       }
-    `, data: { 
-        user: user 
-      }
-    });
+  }`;
+
+  const { loading, error, data } = useQuery(GET_USER);
+
+  if(loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <ClipLoader
+          size={75}
+          color={"#123abc"}
+          loading={loading}
+        />
+      </Box>
+    );
   }
+
+
 
   return (
     <Route {...rest} render={({ location }) =>
-        userString ? ( 
+        data ? ( 
           children
         ) : (
           <Redirect to={{

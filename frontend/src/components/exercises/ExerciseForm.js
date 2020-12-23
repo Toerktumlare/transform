@@ -1,41 +1,41 @@
-import React, { useState } from 'react'
-import { Box, Typography, TextField, Button } from '@material-ui/core'
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/client'
-import { GET_EXERCISES } from './ExerciseQueries'
+import React from 'react'
+import { 
+  Box, 
+  Typography, 
+  TextField, 
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
-const CREATE_EXERCISE = gql`
-  mutation doCreateExercise($input: ExerciseInput!) {
-    createExercise(input: $input) {
-      id
-      name
-    }
-  }
-`
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 120,
+  },
+  selectEmpty: {
+    // marginTop: theme.spacing(2),
+  },
+}));
 
-const ExerciseForm = (props) => {
-  const [createExercise, { data }] = useMutation(CREATE_EXERCISE)
-  const [name, setName] = useState('')
+const ExerciseForm = ({ 
+  onSubmit, 
+  value, 
+  onInputChange, 
+  categories=[],
+  selectedCategory=[],
+  onCategoryChange
+}) => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    createExercise({ 
-      variables: { input: { name } },
-      refetchQueries: [{ query: GET_EXERCISES }]
-    }).then(() => {
-      setName('')
-    })
-  }
-
-  const handleNameChange = (e) => {
-    setName(e.target.value)
-  }
+  const classes = useStyles();
 
   return (
     <Box flexDirection="column" flexGrow={2} mx={2}>
-      <form name="form" onSubmit={handleSubmit}>
+      <form name="form" onSubmit={onSubmit}>
         <Typography variant="h6" gutterBottom>
-          Exercises
+          Edit Exercises
         </Typography>
         <Box pb={3}>
           <TextField
@@ -44,10 +44,33 @@ const ExerciseForm = (props) => {
             variant="outlined"
             size="small"
             fullWidth
-            onChange={handleNameChange}
-            value={name}
+            onChange={onInputChange}
+            value={value}
           />
         </Box>
+        <FormControl 
+          variant="outlined"
+          fullWidth
+          size="small"
+          className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">Categories</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={selectedCategory}
+          onChange={onCategoryChange}
+          label="Categories"
+          multiple
+        >
+        {categories.map((item, index) => {
+            return (
+              <MenuItem value={item.id} key={item.id}>
+                {item.name}
+              </MenuItem>                
+            )
+          })}
+        </Select>
+      </FormControl>
         <Box>
           <Button
             type="submit"
