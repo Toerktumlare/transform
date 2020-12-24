@@ -1,40 +1,20 @@
 import { 
   ApolloClient,
-  InMemoryCache,
   ApolloLink,
   createHttpLink,
-  gql,
-  makeVar
+  gql
 } from '@apollo/client'
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { RestLink } from 'apollo-link-rest';
 import Cookies from 'js-cookie'
+import { cache } from './cache'
 
 const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
   }
 `;
-
-export const isLoggedInVar = makeVar(!!localStorage.getItem('userId'));
-
-const cache = new InMemoryCache({
-  typePolicies: {
-    User: {
-      keyFields: []
-    },
-    Query : {
-      fields: {
-        isLoggedIn: {
-          read() {
-            return isLoggedInVar()
-          }
-        }
-      }
-    }
-  }
-});
 
 const httpLink = new createHttpLink({
   credentials: 'include',

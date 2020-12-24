@@ -7,7 +7,7 @@ import {
   useMutation, 
 } from "@apollo/client";
 import Box from '@material-ui/core/Box'
-import { isLoggedInVar } from '../common/ApolloClient';
+import { isLoggedInVar } from '../common/cache';
 
 const LOGOUT_MUTATION = gql`
   mutation doLogout {

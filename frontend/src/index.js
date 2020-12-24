@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from '@apollo/client'
-import { client } from './components/common/ApolloClient'
+import { client } from './components/common/client'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/moment'
 

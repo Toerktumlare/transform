@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMutation, gql } from '@apollo/client'
-import { isLoggedInVar } from '../common/ApolloClient'
+import { isLoggedInVar } from '../common/cache'
 import { useHistory } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 
