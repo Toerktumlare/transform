@@ -25,6 +25,7 @@ import CalenderView from './CalendarView'
 import ListAltIcon from '@material-ui/icons/ListAlt'
 import ExerciseView from '../exercises/ExerciseView'
 import WorkoutsView from '../workouts/WorkoutsView'
+import ToolbarUser from './ToolbarUser'
 
 const drawerWidth = 60
 
@@ -167,9 +168,10 @@ const Menu = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap style={{ 'flexGrow': '1' }}>
             transform yourself
           </Typography>
+          <ToolbarUser />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>

@@ -6,6 +6,7 @@ import {
     Avatar,
     Typography
 } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab';
 
 /**
 *   Stuff to fix:
@@ -76,11 +77,17 @@ const ProfileImage = ({initials, size}) => {
 
     return (
         <Box display='flex' alignItems="center" justifyContent="center" flexGrow={1}>
-          <Avatar alt="avatar" size="large" className={`${classes.orange} ${circleDimension}`}>
-              <Typography className={circleText}>
-                  {initials}
-              </Typography>
-          </Avatar>
+          {!initials ? (
+              <Skeleton variant="circle">
+                  <Avatar />
+              </Skeleton>
+          ): (
+              <Avatar alt="avatar" size="large" className={`${classes.orange} ${circleDimension}`}>
+                  <Typography className={circleText}>
+                      {initials}
+                  </Typography>
+              </Avatar>
+            )}
         </Box>
     );
 }

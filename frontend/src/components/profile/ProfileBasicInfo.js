@@ -3,19 +3,9 @@ import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Box,
-    Avatar,
     Typography
 } from '@material-ui/core'
 
-/**
-*   Stuff to fix:
-*
-*   - If no name is provided render default person image depending on gender
-*   - Be able to provide src image
-*   - Set priority order if everything is provided, image -> initials -> default image
-*   - set custom font size
-*   - set custom width and hight
-*/
 const useStyles = makeStyles((theme) => ({
 
 }));
