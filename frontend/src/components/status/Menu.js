@@ -32,7 +32,6 @@ const drawerWidth = 60
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.up('sm')]: {
-      //width: `calc(100% - ${drawerWidth}px)`,
+      width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
@@ -69,13 +68,12 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(10),
+    padding: theme.spacing(0, 3, 0, 3),
   },
 }))
 
 const Menu = (props) => {
   const classes = useStyles()
-  const theme = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const match = useRouteMatch()
 
@@ -203,14 +201,12 @@ const Menu = (props) => {
           </Drawer>
         </Hidden>
       </nav>
-      <Container className={classes.content}>
-        <div className={classes.toolbar} >
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
           <Route exact path={match.url}>
-            <Container>
-              <Typography variant="h1" component="h2" gutterBottom>
-                default view
-              </Typography>
-            </Container>
+            <Typography variant="h1" component="h2" gutterBottom>
+              default view
+            </Typography>
           </Route>
           <Route exact path='/calender'>
             <CalenderView />
@@ -232,8 +228,7 @@ const Menu = (props) => {
           <Route exact path='/settings'>
             <SettingsView />
           </Route>
-        </div>
-      </Container>
+      </main>
     </div>
   )
 }

@@ -1,15 +1,13 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import BigCalendar from '../common/BigCalendar'
 import { Container } from '@material-ui/core'
+import WorkoutTypeInput from '../exercises/create/WorkoutTypeInput'
 
 const CalendarView = () => {
   return (
-    <Container>
       <Box mt={3}>
-        <BigCalendar />
+        <WorkoutTypeInput />
       </Box>
-    </Container>
   )
 }
 
