@@ -1,9 +1,28 @@
 import React from 'react'
-import WorkoutsOverview from './WorkoutsOverview'
+import BasicTable from '../common/BasicTable'
+
+const headers = [
+  "name",
+  "categories",
+  "id"
+]
+
+const items = [
+  {
+    "name": "Squats",
+    "category": "Legs",
+    "id": 1,
+  },
+  {
+    "name": "WallBalls",
+    "category": "Legs",
+    "id": 2,
+  }
+]
 
 const WorkoutsView = () => {
   return (
-      <WorkoutsOverview />
+    <BasicTable headers={headers} items={items} />
   )
 }
 

@@ -54,9 +54,7 @@ const Menu = (props) => {
             <WorkoutsView />
           </Route>
           <Route exact path='/graphs'>
-            <Typography variant="h1" component="h2" gutterBottom>
-              Graph view
-            </Typography>
+            Graph
           </Route>
           <Route exact path='/exercises'>
             <ExerciseView />
