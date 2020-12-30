@@ -21,8 +21,15 @@ const items = [
 ]
 
 const WorkoutsView = () => {
+
+  const handleClick = (e, item) => {
+    if (item !== undefined) {
+      console.log(item);
+    }
+  }
+
   return (
-    <BasicTable headers={headers} items={items} />
+    <BasicTable headers={headers} items={items} size="small" hover onClick={handleClick}/>
   )
 }
 

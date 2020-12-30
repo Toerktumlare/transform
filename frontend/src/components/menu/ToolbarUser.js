@@ -48,7 +48,7 @@ const ToolbarUser = (props) => {
         <ButtonBase onClick={(e) => { history.push('/profile') }}>
             <Box display="flex" justifyContent="flex-end" className={classes.root} >
                 <Box display="flex" justifyContent="flex-end" flexGrow={1} mr={2}>
-                    <Typography variant="h6" flexGrow={1} >
+                    <Typography variant="h6" >
                         {loading ? <Skeleton width={100} /> : username}
                     </Typography>
                 </Box>

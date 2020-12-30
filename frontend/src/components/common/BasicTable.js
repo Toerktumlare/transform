@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const BasicTable = (props) => {
     const classes = useStyles();
-    const { headers, items } = props;
+    const { headers, items, hover, onClick} = props;
 
     let loading = false;
 
@@ -40,7 +40,7 @@ const BasicTable = (props) => {
                 <TableHead>
                     <TableRow>
                         {headers.map((header, i) => (
-                            <TableCell>{header}</TableCell>
+                            <TableCell key={i}>{header}</TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
@@ -51,9 +51,13 @@ const BasicTable = (props) => {
                 ) : (
                     <TableBody>
                         {items.map((item, i) => (
-                            <TableRow key={i}>
+                            <TableRow 
+                                key={i} 
+                                hover={hover}
+                                onClick={(event) => onClick(event, item)}
+                            >
                                 {Object.keys(item).map((key, value) => (
-                                    <TableCell align="left">{item[key]}</TableCell>
+                                    <TableCell key={key} align="left">{item[key]}</TableCell>
                                 ))}
                             </TableRow>
                         ))}
