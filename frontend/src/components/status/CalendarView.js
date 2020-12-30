@@ -5,7 +5,7 @@ import WorkoutTypeInput from '../exercises/create/WorkoutTypeInput'
 
 const CalendarView = () => {
   return (
-      <Box mt={3}>
+      <Box>
         <WorkoutTypeInput />
       </Box>
   )

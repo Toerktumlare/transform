@@ -50,7 +50,7 @@ const ExerciseView = () => {
   }
 
   return (
-    <Box pt={3} display="flex" justifyContent="space-around">
+    <Box display="flex" justifyContent="space-around">
       <ExerciseForm 
         onSubmit={handleSubmit} 
         value={name} 
